@@ -208,6 +208,9 @@
             // Remove the fruit element after it falls out of the container
             setTimeout(function () {
                 fruitsContainer.removeChild(fruit);
+                // Deduct points when a fruit is missed
+                score = Math.max(0, score - 1);
+                scoreElement.innerText = "Score: " + score;
             }, animationDuration);
         }
     </script>
