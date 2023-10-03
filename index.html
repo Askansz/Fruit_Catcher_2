@@ -1,138 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fruit Catcher</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Site</title>
     <style>
         body {
-            background-color: #f3f3f3;
+            background-image: url('background.jpg'); /* Replace 'background.jpg' with your background image file path */
+            background-size: cover;
+            background-repeat: no-repeat;
             font-family: Arial, sans-serif;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
         }
-
-        h1 {
-            text-align: center;
-        }
-
-        #start-screen {
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        #start-button {
-            font-size: 24px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-
-        #game-container {
-            display: none; /* Initially hide the game container */
-            position: relative;
-            width: auto;
-            height: 500px;
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
-            border: 1px solid #999999;
-            background-color: #ffffff;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }
-
-        #basket {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            width: 70px;
-            height: 70px;
-            background-image: url('basket.PNG');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+        h1 {
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        .fruit {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .fruit-orange {
-            background-image: url('fruit-orange.PNG');
-        }
-
-        .fruit-apple {
-            background-image: url('fruit-apple.PNG');
-        }
-
-        .fruit-banana {
-            background-image: url('fruit-banana.PNG');
-        }
-
-        .fruit-pear {
-            background-image: url('fruit-pear.PNG');
-        }
-
-        #score {
+        .game-slot {
+            display: inline-block;
+            width: calc(25% - 45px);
+            margin: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background for game slots */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
             text-align: center;
-            margin-top: 20px;
-            font-size: 20px;
+        }
+        .game-image {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div id="start-screen">
-        <h1>Welcome to Fruit Catcher 2</h1>
-        <button id="start-button" onclick="startGame()">Start Game</button>
+    <div class="container">
+        <h1>Teknik.AB Games</h1>
+        
+        <!-- Game Slot 1 -->
+        <div class="game-slot">
+            <img src="game1.jpg" alt="Game 1" class="game-image">
+            <h3>Fruit Catcher</h3>
+            <p>Description of Game 1.</p>
+            <a href="https://askansz.github.io/the.king/" class="btn">Play Now</a>
+        </div>
+
+        <!-- Game Slot 2 -->
+        <div class="game-slot">
+            <img src="game2.jpg" alt="Game 2" class="game-image">
+            <h3>Toc Tac Toe</h3>
+            <p>Description of Game 2.</p>
+            <a href="https://askansz.github.io/TicTacToeGame/" class="btn">Play Now</a>
+        </div>
+
+        <!-- Repeat the above game slot HTML for Games 3 to 16 -->
+
     </div>
-
-    <div id="game-container">
-        <div id="basket"></div>
-    </div>
-
-    <div id="score">Score: 0</div>
-    
-    <script>
-        var score = 0;
-        var gameContainer = document.getElementById("game-container");
-        var basket = document.getElementById("basket");
-        var scoreElement = document.getElementById("score");
-        var basketPosition = 0;
-        var basketSpeed = 20;
-
-        // Function to start the game
-        function startGame() {
-            document.getElementById("start-screen").style.display = "none"; // Hide the start screen
-            gameContainer.style.display = "block"; // Show the game container
-
-            // Add event listeners for keydown events
-            document.addEventListener("keydown", function (event) {
-                if (event.key === "a") {
-                    // Move the basket to the left
-                    moveBasket(-basketSpeed);
-                } else if (event.key === "d") {
-                    // Move the basket to the right
-                    moveBasket(basketSpeed);
-                }
-            });
-
-            // Example: Start generating fruits when the game starts
-            setInterval(dropFruit, 2000);
-        }
-
-        // Rest of your game code...
-
-        // Example: Function to generate a random position for the fruit
-        function getRandomPosition() {
-            return Math.floor(Math.random() * (gameContainer.offsetWidth - 40));
-        }
-
-        // Function to move the basket
-        function moveBasket(delta) {
-            basketPosition += delta;
-            // Ensure the basket stays within the game container bounds
-            basketPosition = Math.max(0, Math.min(gameContainer.offsetWidth - basket.offsetWidth, basketPosition));
-            basket.style.left = basketPosition + "px";
-        }
-    </script>
 </body>
 </html>
