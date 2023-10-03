@@ -45,6 +45,7 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+            transition: left 0.2s ease; /* Smoother basket movement */
         }
 
         #fruits {
@@ -114,7 +115,7 @@
         var basket = document.getElementById("basket");
         var scoreElement = document.getElementById("score");
         var basketPosition = 0;
-        var basketSpeed = 20;
+        var basketSpeed = 40; // Increase basket speed for smoother movement
         var fruitsContainer = document.getElementById("fruits");
 
         // Function to start the game
@@ -148,6 +149,30 @@
             // Ensure the basket stays within the game container bounds
             basketPosition = Math.max(0, Math.min(gameContainer.offsetWidth - basket.offsetWidth, basketPosition));
             basket.style.left = basketPosition + "px";
+
+            // Check for fruit collisions
+            checkCollisions();
+        }
+
+        // Function to check for fruit collisions
+        function checkCollisions() {
+            var fruits = document.getElementsByClassName("fruit");
+            for (var i = 0; i < fruits.length; i++) {
+                var fruit = fruits[i];
+                if (isCollision(fruit, basket)) {
+                    // Remove the caught fruit and increase the score
+                    fruitsContainer.removeChild(fruit);
+                    score++;
+                    scoreElement.innerText = "Score: " + score;
+                }
+            }
+        }
+
+        // Function to check if two elements are colliding
+        function isCollision(element1, element2) {
+            var rect1 = element1.getBoundingClientRect();
+            var rect2 = element2.getBoundingClientRect();
+            return !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom);
         }
 
         // Function to create and animate a falling fruit
