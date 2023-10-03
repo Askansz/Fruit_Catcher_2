@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fruit Catcher 2</title>
+    <title>Fruit Catcher</title>
     <style>
         body {
             background-color: #f3f3f3;
@@ -22,6 +22,13 @@
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
+            cursor: pointer;
+        }
+
+        .mode-button {
+            font-size: 20px;
+            margin: 10px;
+            padding: 5px 10px;
             cursor: pointer;
         }
 
@@ -100,6 +107,11 @@
     <div id="start-screen">
         <h1>Welcome to Fruit Catcher 2</h1>
         <button id="start-button" onclick="startGame()">Start Game</button>
+        <div>
+            <span class="mode-button" onclick="setMode('easy')">Easy</span>
+            <span class="mode-button" onclick="setMode('medium')">Medium</span>
+            <span class="mode-button" onclick="setMode('hard')">Hard</span>
+        </div>
     </div>
 
     <div id="game-container">
@@ -117,6 +129,12 @@
         var basketPosition = 0;
         var basketSpeed = 40; // Increase basket speed for smoother movement
         var fruitsContainer = document.getElementById("fruits");
+        var gameMode = "medium"; // Default game mode
+
+        // Function to set the game mode
+        function setMode(mode) {
+            gameMode = mode;
+        }
 
         // Function to start the game
         function startGame() {
@@ -135,7 +153,7 @@
             });
 
             // Start generating fruits when the game starts
-            setInterval(dropFruit, 2000);
+            setInterval(dropFruit, getFruitSpawnInterval());
         }
 
         // Function to generate a random position for the fruit
@@ -201,7 +219,7 @@
             
             fruitsContainer.appendChild(fruit);
             
-            var animationDuration = Math.floor(Math.random() * 5000) + 3000; // Slower falling animation
+            var animationDuration = getFruitAnimationDuration(); // Get the fruit falling animation duration
             
             fruit.style.animation = "fall " + animationDuration + "ms linear";
             
@@ -212,6 +230,34 @@
                 score = Math.max(0, score - 1);
                 scoreElement.innerText = "Score: " + score;
             }, animationDuration);
+        }
+
+        // Function to get the fruit spawn interval based on the game mode
+        function getFruitSpawnInterval() {
+            switch (gameMode) {
+                case "easy":
+                    return 3000; // Easy mode
+                case "medium":
+                    return 2000; // Medium mode
+                case "hard":
+                    return 1000; // Hard mode
+                default:
+                    return 2000; // Default to medium mode
+            }
+        }
+
+        // Function to get the fruit animation duration based on the game mode
+        function getFruitAnimationDuration() {
+            switch (gameMode) {
+                case "easy":
+                    return 6000; // Slower animation in easy mode
+                case "medium":
+                    return 4000; // Medium animation in medium mode
+                case "hard":
+                    return 2000; // Faster animation in hard mode
+                default:
+                    return 4000; // Default to medium animation
+            }
         }
     </script>
 </body>
