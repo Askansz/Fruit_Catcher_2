@@ -97,14 +97,23 @@
         var basket = document.getElementById("basket");
         var scoreElement = document.getElementById("score");
         var basketPosition = 0;
-        var basketSpeed = 36;
+        var basketSpeed = 20;
 
         // Function to start the game
         function startGame() {
             document.getElementById("start-screen").style.display = "none"; // Hide the start screen
             gameContainer.style.display = "block"; // Show the game container
 
-            // Rest of your game code...
+            // Add event listeners for keydown events
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "a") {
+                    // Move the basket to the left
+                    moveBasket(-basketSpeed);
+                } else if (event.key === "d") {
+                    // Move the basket to the right
+                    moveBasket(basketSpeed);
+                }
+            });
 
             // Example: Start generating fruits when the game starts
             setInterval(dropFruit, 2000);
@@ -115,6 +124,14 @@
         // Example: Function to generate a random position for the fruit
         function getRandomPosition() {
             return Math.floor(Math.random() * (gameContainer.offsetWidth - 40));
+        }
+
+        // Function to move the basket
+        function moveBasket(delta) {
+            basketPosition += delta;
+            // Ensure the basket stays within the game container bounds
+            basketPosition = Math.max(0, Math.min(gameContainer.offsetWidth - basket.offsetWidth, basketPosition));
+            basket.style.left = basketPosition + "px";
         }
     </script>
 </body>
